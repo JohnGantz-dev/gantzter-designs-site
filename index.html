@@ -1,0 +1,293 @@
+<title>Gantzter Designs — Real-world systems, engineered & shipped</title>
+<style>
+  :root{
+    --graphite:#141416; --graphite-2:#1b1b1f; --panel:#202024; --panel-2:#26262b;
+    --molten:#FF5A1F; --molten-dim:#c8481a; --brass:#C8992E; --bone:#EDE7DD;
+    --steel:#74747c; --dim:#9a938a; --dim-2:#6e6a63; --hair:rgba(200,153,46,.22); --hair-2:rgba(237,231,221,.10);
+    --cyan:#57b6de;
+    --fdisplay:"Arial Narrow","Helvetica Neue Condensed",Impact,sans-serif;
+    --fbody:"Helvetica Neue",Helvetica,Arial,system-ui,sans-serif;
+    --fmono:ui-monospace,"SF Mono","Cascadia Code",Menlo,Consolas,monospace;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--graphite);color:var(--bone);font-family:var(--fbody);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+  h1,h2,h3{font-family:var(--fdisplay);font-weight:800;text-transform:uppercase;letter-spacing:.01em;line-height:.98;margin:0;text-wrap:balance;font-stretch:condensed;}
+  p{margin:0}
+  a{color:inherit;text-decoration:none}
+  .mono{font-family:var(--fmono)}
+  .eyebrow{font-family:var(--fmono);font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--brass)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+  .z{color:var(--molten)}
+
+  /* carbon substrate */
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background:
+      repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0 6px,transparent 6px 12px),
+      repeating-linear-gradient(-45deg,rgba(0,0,0,.25) 0 6px,transparent 6px 12px);}
+  main,header,footer{position:relative;z-index:1}
+
+  /* ---------- NAV ---------- */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:rgba(20,20,22,.72);border-bottom:1px solid var(--hair-2)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:var(--fdisplay);font-weight:800;text-transform:uppercase;font-size:1.35rem;letter-spacing:.02em;font-stretch:condensed}
+  .brand svg{width:30px;height:30px;display:block}
+  .navlinks{display:flex;gap:30px;align-items:center;font-family:var(--fmono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  .navlinks a:hover{color:var(--bone)}
+  .btn{font-family:var(--fmono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--molten);color:var(--molten);border-radius:2px;transition:.16s;white-space:nowrap;cursor:pointer;background:transparent}
+  .btn:hover{background:var(--molten);color:var(--graphite)}
+  .btn-solid{background:var(--molten);color:var(--graphite);border-color:var(--molten)}
+  .btn-solid:hover{background:var(--molten-dim);border-color:var(--molten-dim)}
+  .btn-ghost{border-color:var(--hair);color:var(--bone)}
+  .btn-ghost:hover{background:var(--panel);color:var(--bone)}
+  @media(max-width:760px){.navlinks{display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;border-bottom:1px solid var(--hair-2)}
+  #herofx{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+  .hero::after{content:"";position:absolute;inset:0;z-index:1;background:
+    radial-gradient(ellipse at 20% 120%,rgba(255,90,31,.16),transparent 55%),
+    linear-gradient(90deg,rgba(20,20,22,.82) 0%,rgba(20,20,22,.55) 45%,transparent 80%)}
+  .hero .wrap{position:relative;z-index:2;padding-top:8vh;padding-bottom:8vh}
+  .hero h1{font-size:clamp(2.6rem,8vw,6rem)}
+  .hero .tag{font-size:clamp(1.05rem,2.4vw,1.5rem);color:var(--bone);max-width:30ch;margin-top:22px;font-family:var(--fbody);font-weight:400;line-height:1.35}
+  .hero .tag b{color:var(--molten);font-weight:600}
+  .hero .desc{font-family:var(--fmono);color:var(--dim);font-size:.82rem;letter-spacing:.08em;margin-top:20px}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+  .videoslot{position:absolute;right:20px;bottom:16px;z-index:2;font-family:var(--fmono);font-size:.62rem;letter-spacing:.1em;color:var(--dim-2);text-transform:uppercase;border:1px dashed var(--hair);padding:6px 10px}
+
+  /* proof strip */
+  .proof{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--hair-2)}
+  .proof .p{padding:22px clamp(14px,2.5vw,26px);border-right:1px solid var(--hair-2)}
+  .proof .p:last-child{border-right:none}
+  .proof .n{font-family:var(--fdisplay);font-weight:800;font-size:1.7rem;color:var(--molten);font-stretch:condensed;font-variant-numeric:tabular-nums}
+  .proof .l{font-family:var(--fmono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:3px}
+  @media(max-width:640px){.proof{grid-template-columns:repeat(2,1fr)}.proof .p:nth-child(2){border-right:none}}
+
+  section{padding:clamp(56px,9vw,110px) 0}
+  .shead{max-width:60ch;margin-bottom:44px}
+  .shead h2{font-size:clamp(1.8rem,4vw,2.8rem);margin:12px 0 14px}
+  .shead p{color:var(--dim);font-size:1.05rem}
+
+  /* positioning */
+  .wedge{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair-2);border:1px solid var(--hair-2)}
+  .wedge>div{background:var(--graphite);padding:30px 26px}
+  .wedge .k{font-family:var(--fmono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin-bottom:12px}
+  .wedge p{color:var(--dim);font-size:.98rem}
+  .wedge b{color:var(--bone);font-weight:600}
+  @media(max-width:760px){.wedge{grid-template-columns:1fr}}
+
+  /* services */
+  .svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media(max-width:760px){.svc-grid{grid-template-columns:1fr}}
+  .svc{border:1px solid var(--hair-2);background:linear-gradient(180deg,var(--panel),var(--graphite-2));padding:28px 26px;transition:.16s}
+  .svc:hover{border-color:var(--hair);transform:translateY(-2px)}
+  .svc .code{font-family:var(--fmono);font-size:.62rem;letter-spacing:.14em;color:var(--dim-2)}
+  .svc h3{font-size:1.35rem;margin:8px 0 12px}
+  .svc h3 .u{color:var(--brass)}
+  .svc ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
+  .svc li{padding-left:20px;position:relative;color:var(--dim);font-size:.95rem}
+  .svc li::before{content:"";position:absolute;left:0;top:.62em;width:8px;height:2px;background:var(--molten)}
+  .svc li b{color:var(--bone);font-weight:600}
+
+  /* work */
+  .work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  @media(max-width:760px){.work-grid{grid-template-columns:1fr}}
+  .case{border:1px solid var(--hair-2);background:var(--graphite-2);padding:26px;position:relative;overflow:hidden}
+  .case::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--molten);opacity:.65}
+  .case .tag{font-family:var(--fmono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+  .case h3{font-size:1.2rem;margin:10px 0 10px}
+  .case p{color:var(--dim);font-size:.94rem}
+  .case .metric{font-family:var(--fmono);font-size:.72rem;color:var(--brass);margin-top:14px;letter-spacing:.04em}
+
+  /* advisory ladder */
+  .ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  @media(max-width:900px){.ladder{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:460px){.ladder{grid-template-columns:1fr}}
+  .rung{border:1px solid var(--hair-2);background:var(--graphite-2);padding:24px 20px;display:flex;flex-direction:column;gap:10px}
+  .rung.free{border-color:var(--molten);background:linear-gradient(180deg,rgba(255,90,31,.08),var(--graphite-2))}
+  .rung .step{font-family:var(--fmono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--dim-2)}
+  .rung h3{font-size:1.15rem}
+  .rung .pr{font-family:var(--fmono);font-size:1.2rem;color:var(--molten);font-variant-numeric:tabular-nums}
+  .rung .pr.free{color:var(--brass)}
+  .rung p{color:var(--dim);font-size:.88rem;flex:1}
+  .rung .btn{margin-top:6px;text-align:center}
+
+  /* contact */
+  .contact{background:linear-gradient(180deg,var(--graphite-2),var(--graphite));border-top:1px solid var(--hair-2)}
+  .contact .box{display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px}
+  .contact h2{font-size:clamp(2rem,5vw,3.4rem)}
+  .contact p{color:var(--dim);max-width:48ch}
+  .contact .cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+
+  footer{border-top:1px solid var(--hair-2);padding:34px 0 46px}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-family:var(--fmono);font-size:.7rem;letter-spacing:.06em;color:var(--dim-2)}
+  .foot .brand{font-size:1rem;color:var(--bone)}
+
+  @media(prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.in{opacity:1;transform:none}
+    .molten-pulse{animation:mp 3s ease-in-out infinite}
+    @keyframes mp{0%,100%{opacity:.75}50%{opacity:1}}
+  }
+</style>
+
+<!-- forged-Z reusable symbol -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="steelg" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#8a8a92"/><stop offset=".16" stop-color="#74747c"/><stop offset="1" stop-color="#151519"/>
+  </linearGradient>
+  <symbol id="zmark" viewBox="0 0 100 100">
+    <g fill="url(#steelg)" stroke="#C8992E" stroke-width=".8">
+      <rect x="20" y="22" width="60" height="15"/><rect x="20" y="63" width="60" height="15"/>
+      <polygon points="64,37 80,37 36,63 20,63"/>
+    </g>
+    <rect x="20" y="22" width="60" height="2" fill="#FF5A1F"/>
+  </symbol>
+</defs></svg>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><svg><use href="#zmark"/></svg>GANT<span class="z">Z</span>TER</a>
+    <nav class="navlinks">
+      <a href="#work">Work</a><a href="#services">Services</a><a href="#advisory">Advisory</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="btn btn-solid" href="#contact">Book a free 30</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <canvas id="herofx"></canvas>
+    <div class="wrap">
+      <div class="eyebrow reveal">Engineering studio · est. 2014</div>
+      <h1 class="reveal">Real-world systems,<br>engineered &amp; <span class="z">shipped</span>.</h1>
+      <p class="tag reveal">We turn <b>real-world complexity</b> into working systems — from the machine shop to the flight line to full-stack, AI-native software.</p>
+      <p class="desc reveal">// full-stack backend architecture · AI · aerial data · CAD &amp; fabrication</p>
+      <div class="cta reveal">
+        <a class="btn btn-solid" href="#contact">Book a free 30-min assessment</a>
+        <a class="btn btn-ghost" href="#work">See the work</a>
+      </div>
+    </div>
+    <div class="videoslot">◐ hero video slot — drop Flow drone clip here</div>
+  </section>
+
+  <div class="wrap"><div class="proof reveal">
+    <div class="p"><div class="n">16</div><div class="l">Verified AI certs</div></div>
+    <div class="p"><div class="n">P107</div><div class="l">FAA pilot · 6 yrs field</div></div>
+    <div class="p"><div class="n">2014</div><div class="l">Building since</div></div>
+    <div class="p"><div class="n">Full-Stack</div><div class="l">Field → cloud</div></div>
+  </div></div>
+
+  <!-- POSITIONING -->
+  <section id="about"><div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">What makes us different</div>
+      <h2>Not a design studio. Not an offshore dev shop.</h2>
+      <p>Almost no software team can claim a master-machinist co-founder, an FAA Part 107 field record over energy infrastructure, CAD/FEA roots, and AI-native full-stack delivery. We can. That combination is the whole point.</p>
+    </div>
+    <div class="wedge reveal">
+      <div><div class="k">The wedge</div><p>Physical-world engineering fused with digital: we <b>machine the bracket, print the carbon housing, and ship the software that runs it.</b></p></div>
+      <div><div class="k">The through-line</div><p>Machining is <b>tolerance</b>, drones are <b>capture</b>, the backend is <b>processing</b>, AI is <b>velocity</b> — one discipline, physical world to cloud.</p></div>
+      <div><div class="k">How we work</div><p><b>Remote-first, Zoom-native.</b> Answer-first and spec-precise. We show the receipt: verified certs, shipped products, a live URL.</p></div>
+    </div>
+  </div></section>
+
+  <!-- SERVICES -->
+  <section id="services"><div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">Capability schedule</div>
+      <h2>What we render.</h2>
+      <p>Four practice areas across the digital and physical arenas. On a free 30, we mark what applies to you and scope it.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc reveal"><div class="code">A · SOFTWARE &amp; PRODUCT</div><h3>Build <span class="u">anything</span> on the stack</h3>
+        <ul><li><b>Apps of all nature</b> — web, mobile-web, multi-user with auth, data, payments</li><li><b>Backend architecture &amp; APIs</b> built to scale and hand off clean</li><li><b>Websites &amp; rebuilds</b> — WordPress/Drupal, migrations, modernizations</li><li><b>Spec-driven reviews</b>, mockups, diagrams &amp; deployment/setup</li></ul></div>
+      <div class="svc reveal"><div class="code">B · AI &amp; AUTOMATION</div><h3>Wire in <span class="u">intelligence</span></h3>
+        <ul><li><b>AI automation integration</b> — LLM agents &amp; workflow automation</li><li><b>Custom chatbots</b> — one assistant across web, WhatsApp &amp; more</li><li><b>Data pipelines &amp; annotation</b> — raw data into usable signal</li></ul></div>
+      <div class="svc reveal"><div class="code">C · AERIAL &amp; ENGINEERING</div><h3>From the <span class="u">field</span></h3>
+        <ul><li><b>Aerial data &amp; defect detection</b> — solar, wind, roofs, facades</li><li><b>Infrastructure inspection</b> — FAA Part 107, 6 yrs field ops</li><li><b>Photogrammetry &amp; site modeling</b> (OpenDroneMap / QGIS)</li><li><b>CAD · FEA · prototyping</b> — SolidWorks &amp; Bambu X1-Carbon</li></ul></div>
+      <div class="svc reveal"><div class="code">D · ADVISORY &amp; CONTENT</div><h3>Direction &amp; <span class="u">reach</span></h3>
+        <ul><li><b>Technical advisory</b> — free 30-min assessment, then strategy or build</li><li><b>Architecture audit</b> — a flat-fee review with a written roadmap</li><li><b>Short-form video &amp; content</b> — run on our in-house engine</li></ul></div>
+    </div>
+  </div></section>
+
+  <!-- WORK -->
+  <section id="work"><div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">Selected work</div>
+      <h2>Shipped, not slides.</h2>
+      <p>A sample of production systems — details anonymized where client confidentiality applies.</p>
+    </div>
+    <div class="work-grid">
+      <div class="case reveal"><div class="tag">Full-stack · multi-user</div><h3>Community &amp; deals platform</h3><p>A live web app with 1:1 messaging, business sign-up, and auth — built end to end across backend, data, and deployment.</p><div class="metric">2,000+ members · tested across 100+ live accounts</div></div>
+      <div class="case reveal"><div class="tag">Aerial · data · AI</div><h3>Wind-farm risk analysis</h3><p>A backend that annotates and processes aerial inspection data for turbine and blade assessment — identifying and helping mitigate risk.</p><div class="metric">Energy transmission · solar · wind</div></div>
+      <div class="case reveal"><div class="tag">Compliance SaaS</div><h3>Facade-compliance platform</h3><p>A compliance-tracking product + managed-service layer for a mandated municipal inspection market, with go-to-market deck and pricing model.</p><div class="metric">SaaS + done-with-you service</div></div>
+      <div class="case reveal"><div class="tag">AI · content automation</div><h3>Headless content engine</h3><p>A zero-key, fully automated short-form video pipeline — script → voice → captions → render — powering our own content at scale.</p><div class="metric">In-house · runs unattended</div></div>
+    </div>
+  </div></section>
+
+  <!-- ADVISORY / PRICING -->
+  <section id="advisory"><div class="wrap">
+    <div class="shead reveal">
+      <div class="eyebrow">Advisory · Zoom-native · remote</div>
+      <h2>Free to start. Priced by what you need.</h2>
+      <p>The free 30 removes the risk; the next step is always obvious. One-on-one, over Zoom.</p>
+    </div>
+    <div class="ladder">
+      <div class="rung free reveal"><div class="step">Step 00 · Front door</div><h3>Assessment</h3><div class="pr free">FREE · 30 min</div><p>Where you are, where you want to go. A real read + written follow-up. No pitch.</p><a class="btn btn-solid" href="#contact">Book it</a></div>
+      <div class="rung reveal"><div class="step">Step 01 · Fast yes</div><h3>Architecture audit</h3><div class="pr">$750 flat</div><p>Deep review of your system with a written roadmap you keep.</p><a class="btn" href="#contact" data-stripe="audit">Start</a></div>
+      <div class="rung reveal"><div class="step">Step 02 · Hands-on</div><h3>Build session</h3><div class="pr">$150 / hr</div><p>Implementation and pairing — we build alongside you.</p><a class="btn" href="#contact" data-stripe="build">Book</a></div>
+      <div class="rung reveal"><div class="step">Step 03 · Strategy</div><h3>Advisory</h3><div class="pr">$250 / hr</div><p>The C-level conversation: architecture, AI adoption, direction.</p><a class="btn" href="#contact" data-stripe="advisory">Book</a></div>
+    </div>
+    <p class="mono reveal" style="color:var(--dim-2);font-size:.68rem;margin-top:18px;letter-spacing:.06em">// paid tiers wire to Stripe Payment Links — drop link URLs into the data-stripe buttons</p>
+  </div></section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact"><div class="wrap"><div class="box reveal">
+    <div class="eyebrow">Let's talk</div>
+    <h2>Book a free 30-minute assessment.</h2>
+    <p>Tell us where you are and where you want to go. We'll come back with a straight read on what you need — and whether we're the right build partner.</p>
+    <div class="cta">
+      <a class="btn btn-solid" href="mailto:hello@gantzterdesigns.com?subject=Free%2030-min%20assessment">Email to book</a>
+      <a class="btn btn-ghost" href="#top">Back to top</a>
+    </div>
+    <p class="mono" style="color:var(--dim-2);font-size:.66rem;letter-spacing:.06em">// swap in gantzterdesigns@gmail + a scheduling link (Calendly/Zoom) when ready</p>
+  </div></div></section>
+</main>
+
+<footer><div class="wrap foot">
+  <span class="brand">GANT<span class="z">Z</span>TER DESIGNS</span>
+  <span>Real-world systems, engineered &amp; shipped · remote-first · est. 2014</span>
+  <span>© 2026 Gantzter Designs LLC</span>
+</div></footer>
+
+<script>
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els=document.querySelectorAll('.reveal');
+  if(reduce||!('IntersectionObserver'in window)){els.forEach(function(e){e.classList.add('in')});}
+  else{var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});els.forEach(function(e){io.observe(e)});}
+
+  // hero drone-flythrough placeholder motion (swap for the Flow video when ready)
+  var cv=document.getElementById('herofx'); if(!cv)return; var ctx=cv.getContext('2d'),W,H,dpr;
+  function size(){dpr=Math.min(window.devicePixelRatio||1,2);var r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+  size();window.addEventListener('resize',size);
+  var assets=[];for(var i=0;i<30;i++){assets.push({x:Math.random(),y:.4+Math.random()*.55,d:Math.random()<.2});}
+  var t=0,run=!reduce;
+  function frame(){
+    ctx.clearRect(0,0,W,H);var hz=H*.42;
+    ctx.strokeStyle='rgba(87,182,222,.10)';ctx.lineWidth=1;
+    for(var k=-7;k<=7;k++){ctx.beginPath();ctx.moveTo(W/2+k*44,hz);ctx.lineTo(W/2+k*300,H);ctx.stroke();}
+    for(var g=0;g<12;g++){var yy=hz+((g*54+(t*1.2)%54));var a=(yy-hz)/(H-hz);ctx.strokeStyle='rgba(87,182,222,'+(0.04+a*0.09)+')';ctx.beginPath();ctx.moveTo(0,yy);ctx.lineTo(W,yy);ctx.stroke();}
+    assets.forEach(function(o){var px=((o.x-(t*0.0005))%1+1)%1;var x=px*W,y=hz+o.y*(H-hz),s=3+o.y*7;ctx.fillStyle=o.d?'rgba(255,90,31,.9)':'rgba(237,231,221,.4)';ctx.fillRect(x-s/2,y-s/2,s,s);if(o.d){ctx.strokeStyle='rgba(255,90,31,.5)';ctx.strokeRect(x-s,y-s,s*2,s*2);}});
+    ctx.strokeStyle='rgba(255,90,31,.7)';ctx.lineWidth=1.2;var cx=W*.5,cy=H*.5,r=13;
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke();
+    ctx.fillStyle='rgba(87,182,222,.55)';ctx.font='9px ui-monospace,monospace';ctx.fillText('ALT 42m · SPD 6.4 m/s · SCAN 100%',14,20);
+    t+=2.2;if(run)requestAnimationFrame(frame);
+  }
+  if(reduce){frame();}else{requestAnimationFrame(frame);}
+})();
+</script>
