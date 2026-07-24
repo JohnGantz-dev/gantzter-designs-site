@@ -291,3 +291,27 @@
   if(reduce){frame();}else{requestAnimationFrame(frame);}
 })();
 </script>
+
+<!-- ============ Gantzter chat widget (one channel-agnostic agent) ============ -->
+<!-- Set window.GANTZTER_CHAT_ENDPOINT to your backend /api/chat when hosted.
+     Until then it degrades gracefully to an email fallback. -->
+<script>
+(function(){
+  var ENDPOINT = window.GANTZTER_CHAT_ENDPOINT || "/api/chat";
+  var EMAIL = "hello@gantzterdesigns.com";
+  var sessionId = "s-" + Math.abs(Date.now() ^ (Math.floor(performance.now()*1000)||1));
+  var open=false, busy=false;
+  var css='.gzc-btn{position:fixed;right:22px;bottom:22px;z-index:99998;width:58px;height:58px;border-radius:50%;background:#17171A;box-shadow:0 6px 22px rgba(0,0,0,.45);cursor:pointer;display:grid;place-items:center;border:1px solid #C8992E;transition:transform .15s}.gzc-btn:hover{transform:translateY(-2px)}.gzc-btn svg{width:26px;height:26px}.gzc-panel{position:fixed;right:22px;bottom:92px;z-index:99999;width:min(370px,92vw);height:min(540px,70vh);background:#141416;border:1px solid rgba(200,153,46,.35);border-radius:12px;overflow:hidden;display:none;flex-direction:column;box-shadow:0 18px 50px rgba(0,0,0,.5)}.gzc-panel.on{display:flex}.gzc-head{display:flex;align-items:center;gap:10px;padding:14px 16px;background:linear-gradient(180deg,#202024,#141416);border-bottom:1px solid rgba(200,153,46,.25)}.gzc-head .z{font-family:"Arial Narrow",Arial,sans-serif;font-weight:800;font-stretch:condensed;color:#EDE7DD;text-transform:uppercase;letter-spacing:.02em;font-size:1.05rem}.gzc-head .z b{color:#FF5A1F}.gzc-head small{margin-left:auto;font-family:ui-monospace,Menlo,monospace;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#9a938a}.gzc-log{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px}.gzc-msg{max-width:82%;padding:9px 12px;border-radius:10px;font-size:.9rem;line-height:1.45;white-space:pre-wrap}.gzc-bot{align-self:flex-start;background:#212125;color:#EDE7DD;border:1px solid rgba(237,231,221,.08)}.gzc-you{align-self:flex-end;background:#FF5A1F;color:#141416;font-weight:500}.gzc-typing{align-self:flex-start;color:#9a938a;font-family:ui-monospace,Menlo,monospace;font-size:.72rem}.gzc-form{display:flex;gap:8px;padding:12px;border-top:1px solid rgba(237,231,221,.08);background:#17171A}.gzc-form input{flex:1;background:#0f0f11;border:1px solid rgba(237,231,221,.14);border-radius:8px;color:#EDE7DD;padding:10px 12px;font-size:.9rem;outline:none}.gzc-form input:focus{border-color:#C8992E}.gzc-form button{background:#FF5A1F;color:#141416;border:none;border-radius:8px;padding:0 14px;font-weight:700;cursor:pointer}.gzc-form button:disabled{opacity:.5}';
+  var st=document.createElement("style");st.textContent=css;document.head.appendChild(st);
+  var btn=document.createElement("button");btn.className="gzc-btn";btn.setAttribute("aria-label","Chat with Gantzter Designs");
+  btn.innerHTML='<svg viewBox="0 0 100 100" aria-hidden="true"><g fill="#EDE7DD"><rect x="24" y="26" width="52" height="12"/><rect x="24" y="62" width="52" height="12"/><polygon points="62,38 76,38 38,62 24,62"/></g><rect x="24" y="26" width="52" height="3" fill="#FF5A1F"/></svg>';
+  document.body.appendChild(btn);
+  var panel=document.createElement("div");panel.className="gzc-panel";
+  panel.innerHTML='<div class="gzc-head"><span class="z">GANT<b>Z</b>TER</span><small>assistant</small></div><div class="gzc-log" id="gzc-log"></div><form class="gzc-form" id="gzc-form"><input id="gzc-in" autocomplete="off" placeholder="Ask about a project, or book a free 30…"/><button type="submit">Send</button></form>';
+  document.body.appendChild(panel);
+  var log=panel.querySelector("#gzc-log"),form=panel.querySelector("#gzc-form"),input=panel.querySelector("#gzc-in");
+  function add(cls,text){var d=document.createElement("div");d.className="gzc-msg "+cls;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
+  btn.addEventListener("click",function(){open=!open;panel.classList.toggle("on",open);if(open&&!log.childElementCount)add("gzc-bot","Hey — I'm the Gantzter assistant. Tell me what you're building or the problem you're chasing, and I'll point you the right way. First 30 minutes are free.");if(open)setTimeout(function(){input.focus();},60);});
+  form.addEventListener("submit",async function(e){e.preventDefault();var text=input.value.trim();if(!text||busy)return;add("gzc-you",text);input.value="";busy=true;var typing=add("gzc-typing","…thinking");try{var r=await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({sessionId:sessionId,message:text})});if(!r.ok)throw 0;var data=await r.json();typing.remove();add("gzc-bot",data.reply||"…");}catch(err){typing.remove();add("gzc-bot","I can't reach the assistant right now. Email us at "+EMAIL+" and John will get right back to you.");}finally{busy=false;input.focus();}});
+})();
+</script>
